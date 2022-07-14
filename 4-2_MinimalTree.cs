@@ -24,7 +24,7 @@
 
 public class MinimalTree
 {
-  private readonly int[] _original;
+  private readonly int[] _original; //Note: could remove to save memory once computation is complete, or pass inline in recursion instead of using a field
   private Node<int>? _head;
 
   private void ComputeMinimalTree()
