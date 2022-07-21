@@ -53,12 +53,9 @@ public class ProjectBuilder
         IEnumerable<Project> result = Enumerable<Project>.Empty;
         foreach (var project in projects)
         {
-            if (project.BuildStatus != BuildStatus.Built)
-            {
-                var buildOrder = BuildProject(project, dependencyGraph);
-                if (buildOrder == null) return null;
-                result = result.Concat(buildOrder);
-            }
+            var buildOrder = BuildProject(project, dependencyGraph);
+            if (buildOrder == null) return null;
+            result = result.Concat(buildOrder);
         }
         
         return result.ToList();
@@ -70,15 +67,15 @@ public class ProjectBuilder
         if (project.BuildStatus == BuildStatus.Building)
             return null; //Cycle detected
         
+        if (project.BuildStatus == BuildStatus.Built)
+            return Enumerable<Project>.Empty;
+        
         project.BuildStatus = Building;
         
         var dependencies = dependencyGraph[project];
         IEnumerable<Project> result = new[] { project };
         foreach (var dependency in dependencies)
-        {
-            if (dependency.BuildStatus == BuildStatus.Built)
-                continue;
-            
+        {            
             var dependencyBuildOrder = BuildProject(dependency, dependencyGraph);
             result = result.Concat(dependencyBuildOrder);
         }
