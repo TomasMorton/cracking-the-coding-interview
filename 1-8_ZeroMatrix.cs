@@ -6,13 +6,13 @@
         iterate on each cell, and if there is a row/col with 0 then set it to 0
             use a hashmap/memo to prevent repeat checks
             
-        iterate on each cell, and if it is 0 then mark the related cells to be 0d.
+        iterate on each cell, and if it is 0 then mark the related row/col to be zeroed.
             Update at the end based on marks.
             
         iterate on 0,0; 1,1; 2,2; and check
-            Implemented below, but this doesn't actually work
+            Implemented below, but this doesn't actually work. Above solution is correct
 */
-public class ZeroMatrix //Note: Doesn't solve the problem!
+public class ZeroMatrix //Note: Doesn't solve the problem! Need to store the rows/cols that are 0d and then push out at the end.
 {
     private int[][] _matrix;
     private int _rows;
