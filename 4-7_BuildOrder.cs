@@ -77,6 +77,9 @@ public class ProjectBuilder
         foreach (var dependency in dependencies)
         {            
             var dependencyBuildOrder = BuildProject(dependency, dependencyGraph);
+            if (dependencyBuildOrder == null)
+                return null;
+            
             result = result.Concat(dependencyBuildOrder);
         }
         
